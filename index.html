@@ -11,18 +11,13 @@
 </head>
 <body>
 
-  <!-- Navbar com botão de hambúrguer -->
-  <nav class="navbar">
-    <div class="menu-icon" onclick="toggleMenu()">
-      &#9776; <!-- Ícone de hambúrguer -->
-    </div>
-    <div class="options-menu" id="optionsMenu">
-      <a href="/">LOJA</a>
-      <a href="https://www.instagram.com/posture.company/">INSTAGRAM</a>
-      <a href="https://www.instagram.com/posture.company/">CONTATO</a>
-    </div>
-  </nav>
-  
+  <!-- Links no topo da página -->
+  <div class="top-links">
+    <a href="https://pstr.com.br" class="top-link">LOJA</a>
+    <a href="https://www.instagram.com/posture.company/" class="top-link">INSTAGRAM</a> <!-- Link para o Instagram -->
+    <a href="mailto:companyposture@gmail.com" class="top-link">CONTATO</a> <!-- Link para o Contato atualizado -->
+  </div>
+
   <!-- Logo Container -->
   <div class="logo-container">
     <img src="https://i.imgur.com/NpirZe6.png" alt="Logo" class="logo">
@@ -32,14 +27,6 @@
   <footer class="footer">
     <p id="footer-text">SAFE ZONE - ??/04</p>
   </footer>
-
-  <!-- Script para alternar o menu -->
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById("optionsMenu");
-      menu.classList.toggle("active");
-    }
-  </script>
 
 </body>
 </html>
