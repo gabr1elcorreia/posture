@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Posture</title>
+  <!-- Importação da fonte Montserrat do Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg"> <!-- Adicionando o favicon -->
+</head>
+<body>
+
+  <!-- Navbar com botão de hambúrguer -->
+  <nav class="navbar">
+    <div class="menu-icon" onclick="toggleMenu()">
+      &#9776; <!-- Ícone de hambúrguer -->
+    </div>
+    <div class="options-menu" id="optionsMenu">
+      <a href="/">LOJA</a>
+      <a href="https://www.instagram.com/posture.company/">INSTAGRAM</a>
+      <a href="https://www.instagram.com/posture.company/">CONTATO</a>
+    </div>
+  </nav>
+  
+  <!-- Logo Container -->
+  <div class="logo-container">
+    <img src="https://i.imgur.com/NpirZe6.png" alt="Logo" class="logo">
+  </div>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <p id="footer-text">SAFE ZONE - ??/04</p>
+  </footer>
+
+  <!-- Script para alternar o menu -->
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("optionsMenu");
+      menu.classList.toggle("active");
+    }
+  </script>
+
+</body>
+</html>
