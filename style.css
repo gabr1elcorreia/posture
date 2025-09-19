@@ -1,103 +1,407 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Variáveis para cores */
+:root {
+    --bg-color-dark: #121212;
+    --text-color-dark: #F8F8F8;
+    --bg-color-light: #F8F8F8;
+    --text-color-light: #121212;
+    --font-primary: 'Inter', sans-serif;
+
+    /* Cores para o toggle switch */
+    --switch-bg-dark: #2c2c2c;
+    --switch-circle-dark: #F8F8F8;
+    --switch-icon-dark: #121212;
+
+    --switch-bg-light: #e0e0e0;
+    --switch-circle-light: #121212;
+    --switch-icon-light: #F8F8F8;
 }
 
+/* Modo Escuro (padrão) */
 body {
-  background-color: #111111;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  font-family: 'Montserrat', sans-serif; /* Fonte Montserrat */
-  text-align: center;
+    background: radial-gradient(circle at top, #242424 0%, #121212 100%);
+    color: var(--text-color-dark);
+    font-family: var(--font-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow-x: hidden;
+    transition: background 0.5s ease, color 0.5s ease;
 }
 
-/* Novo estilo para os links LOJA, INSTAGRAM e CONTATO no topo */
-.top-links {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 20px; /* Espaçamento entre os links */
-  font-size: 18px;
-  font-weight: 700;
-  color: #FFF; /* Cor alterada para branco */
-  z-index: 100;
+/* Modo Claro */
+body.light-mode {
+    background: radial-gradient(circle at top, #e0e0e0 0%, #F8F8F8 100%);
+    color: var(--text-color-light);
 }
 
-.top-link {
-  text-decoration: none;
-  color: #FFF; /* Cor alterada para branco */
+.light-mode .nav-link, .light-mode .footer-text {
+    color: var(--text-color-light);
 }
 
-.top-link:hover {
-  color: #FF5733; /* Cor de destaque ao passar o mouse */
+.light-mode .nav-link::after {
+    background-color: var(--text-color-light);
+}
+
+/* Estilos gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* --- Layout do Header (Versão Desktop) --- */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 40px;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* Logo Superior Esquerda */
+.header-small-logo-link {
+    position: absolute;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 12;
+}
+
+.header-small-logo {
+    width: 30px;
+    height: auto;
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.1));
+    transition: filter 0.5s ease;
+}
+
+.light-mode .header-small-logo {
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.1));
+}
+
+/* Menu de Navegação (Desktop) */
+.nav-links {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+    gap: 40px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: relative;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background-color: var(--text-color-dark);
+    transform: translateX(-50%);
+    transition: width 0.3s ease, background-color 0.5s ease;
+}
+
+.light-mode .nav-link::after {
+    background-color: var(--text-color-light);
+}
+
+.nav-link:hover {
+    font-weight: 700;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* --- Botão de Tema (Desktop) --- */
+#desktop-theme-switch {
+    position: absolute;
+    right: 40px;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    z-index: 11;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--switch-bg-dark);
+    transition: 0.4s;
+    border-radius: 34px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--switch-circle-dark);
+    border-radius: 50%;
+    transition: 0.4s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Ícones dentro do switch */
+.icon-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    font-size: 0.8em;
+    transition: opacity 0.4s, color 0.4s;
+}
+
+.icon-indicator.moon { opacity: 1; color: var(--switch-icon-dark); }
+.icon-indicator.sun { opacity: 0; color: var(--switch-icon-dark); }
+
+input:checked + .slider { background-color: var(--switch-bg-light); }
+input:checked + .slider:before { transform: translateX(26px); background-color: var(--switch-circle-light); }
+input:checked + .slider .icon-indicator.moon { opacity: 0; }
+input:checked + .slider .icon-indicator.sun { opacity: 1; color: var(--switch-icon-light); }
+
+
+/* Seção principal com logo e slogan */
+.hero-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding-bottom: 0;
 }
 
 .logo-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 0px;
+    opacity: 0;
+    animation: fadeIn 2s forwards, subtleScale 4s infinite ease-in-out;
 }
 
-.logo {
-  width: 300px;
-  animation: bounce 4s ease-in-out infinite;
+.main-logo {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.1));
+    transition: filter 0.5s ease;
 }
 
-footer.footer {
-  position: absolute;
-  bottom: 20px;
-  font-size: 14px;
-  color: #DBDBDB;
-  white-space: nowrap;
-  overflow: hidden;
-  display: inline-block;
-  width: 15em;
-  letter-spacing: 2px;
-  animation: typing 5s steps(30) 1s forwards, deleting 5s steps(30) 6s forwards, blinking 0.75s step-end infinite;
+/* Efeitos na logo central */
+body:not(.light-mode) .main-logo {
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.2)); /* Glow branco no modo escuro */
 }
 
-@keyframes bounce {
-  0%, 100% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(-10deg);
-  }
-  50% {
-    transform: rotate(10deg);
-  }
-  75% {
-    transform: rotate(-10deg);
-  }
+body.light-mode .main-logo {
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5)); /* Sombra escura no modo claro */
 }
 
-@keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 15em;
-  }
+.slogan-title {
+    font-size: 0.9rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-top: 25px;
+    opacity: 0;
+    animation: fadeIn 2s forwards;
+    animation-delay: 1s;
+    transition: color 0.5s ease;
 }
 
-@keyframes deleting {
-  from {
-    width: 15em;
-  }
-  to {
-    width: 0;
-  }
+/* Rodapé */
+.footer {
+    padding: 20px;
+    font-size: 0.7rem;
+    color: inherit;
+    letter-spacing: 1px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    transition: color 0.5s ease;
 }
 
-@keyframes blinking {
-  50% {
-    border-color: transparent;
-  }
+/* Animações */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes subtleScale {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.01);
+    }
+}
+
+/* --- Layout do Header (Versão Mobile) --- */
+.hamburger-menu {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    /* Esconde elementos do desktop */
+    .nav-links {
+        display: none;
+    }
+    
+    /* Reposicionando os elementos do header mobile */
+    .header {
+        justify-content: space-between;
+        padding: 20px;
+        align-items: flex-start;
+    }
+
+    /* Botão de tema no canto superior esquerdo */
+    #desktop-theme-switch {
+        display: block;
+        position: absolute;
+        left: 20px;
+        right: auto;
+        top: 20px;
+        width: 50px; /* Tamanho reduzido */
+        height: 28px;
+    }
+    
+    #desktop-theme-switch .slider {
+        height: 28px;
+        border-radius: 28px;
+    }
+
+    #desktop-theme-switch .slider:before {
+        height: 20px;
+        width: 20px;
+        left: 4px;
+        bottom: 4px;
+    }
+
+    #desktop-theme-switch input:checked + .slider:before {
+        transform: translateX(22px);
+    }
+
+    /* Logo no topo central */
+    .header-small-logo-link {
+        position: absolute;
+        left: 50%;
+        top: 20px;
+        transform: translateX(-50%);
+    }
+    .header-small-logo {
+        width: 30px;
+    }
+
+    /* Mostra o ícone do hambúrguer no canto superior direito */
+    .hamburger-menu {
+        display: block;
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        width: 30px;
+        height: 25px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 20;
+    }
+
+    .bar {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: var(--text-color-dark);
+        margin-bottom: 6px;
+        transition: transform 0.3s ease;
+    }
+
+    .light-mode .bar {
+        background-color: var(--text-color-light);
+    }
+    
+    /* Animação do X no menu hambúrguer */
+    .hamburger-menu.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger-menu.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger-menu.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* Menu de Navegação (Overlay) */
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: var(--bg-color-dark);
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        transition: transform 0.3s ease-in-out;
+        transform: translateX(100%);
+        z-index: 15;
+    }
+
+    .light-mode .nav-links {
+        background-color: var(--bg-color-light);
+    }
+
+    .nav-links.active {
+        display: flex;
+        transform: translateX(0);
+    }
+    
+    .nav-link {
+        font-size: 1.5rem;
+    }
+
+    /* Centralizando a logo principal no mobile */
+    .main-logo {
+        max-width: 250px;
+    }
+
+    .slogan-title {
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+        margin-top: 20px;
+    }
+
+    .footer {
+        font-size: 0.6rem;
+    }
 }
